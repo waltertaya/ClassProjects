@@ -1,3 +1,7 @@
+% Facts
+symptom(yellow_leaves).
+symptom(stunted_growth).
+
 % Rules
 disease(MaizeDisease) :-
     symptom(yellow_leaves),
@@ -18,8 +22,8 @@ disease(MaizeDisease) :-
 disease('No Specific Disease Found').
 
 % Example usage
-symptom(yellow_leaves).
-symptom(stunted_growth).
+% symptom(yellow_leaves).
+% symptom(stunted_growth).
 
 ?- disease(MaizeDisease), write('The likely maize disease is: '), write(MaizeDisease), nl.
 
