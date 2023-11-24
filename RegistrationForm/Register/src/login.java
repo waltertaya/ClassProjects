@@ -222,7 +222,29 @@ public class login extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Password and confirmation do not match!");
             }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }
+    JButton btnClose = new JButton("Close");
+		btnClose.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent a) {
+				System.exit(0);
+			}
+		});
+		btnClose.setBounds(430, 402, 90, 29);
+		frame.getContentPane().add(btnClose);
+		
+		JButton btnReset = new JButton("Reset");
+		btnReset.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				textField.setText("");
+				textField_1.setText("");
+				pwdPassword.setText("");
+				pwdConfirm.setText("");
+				textField_4.setText("");
+				textField_5.setText("");
+				textField_6.setText("");
+			}
+		});
+    //GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
