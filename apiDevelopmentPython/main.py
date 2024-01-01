@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Response, status, HTTPException
 # from fastapi.params import Body
 from pydantic import BaseModel
 from typing import Optional
@@ -30,6 +30,7 @@ def get_post_by_id(id: int):
             return post
     return None
 
+
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
@@ -40,7 +41,7 @@ async def get_posts():
     return {"data": my_posts}
 
 
-@app.post("/posts")
+@app.post("/posts", status_code=status.HTTP_201_CREATED)
 # async def create_post(payload: dict = Body(...)):
 # Extracting the data from the request body one by one
 async def create_post(post: Post):
@@ -59,7 +60,41 @@ async def create_post(post: Post):
 
 
 @app.get("/posts/{id}")
+# async def get_post(id: int, response: Response):
 async def get_post(id: int):
     post = get_post_by_id(id)
-    print(post)
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Post with id {id} not found")
+        # response.status_code = status.HTTP_404_NOT_FOUND
+        # return {"message": f"Post with id {id} not found"}
     return {"post_details": post}
+
+
+@app.delete("/posts/{id}", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_post(id: int):
+    post = get_post_by_id(id)
+    if not post:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Post with id {id} not found")
+    my_posts.remove(post)
+    return Response(status_code=status.HTTP_204_NO_CONTENT)
+
+
+def find_index_post(id: int):
+    for index, post in enumerate(my_posts):
+        if post['id'] == id:
+            return index
+    return None
+
+
+@app.put("/posts/{id}", status_code=status.HTTP_202_ACCEPTED)
+async def update_post(id: int, post: Post):
+    post_index = find_index_post(id)
+    if post_index is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"Post with id {id} not found")
+    post_dict = post.dict()
+    post_dict['id'] = id
+    my_posts[post_index] = post_dict
+    return Response(status_code=status.HTTP_202_ACCEPTED)
