@@ -43,3 +43,8 @@ class TestArithmetic(unittest.TestCase):
         self.assertEqual(self.arithmetic_3.sub(), -58)
         self.assertEqual(self.arithmetic_4.sub(), 9)
         self.assertEqual(self.arithmetic_5.sub(), 0)
+
+# Either use python3 -m unittest tests/test_arithmetic.py on the terminal or once uncommented the below code will run the test
+
+# if __name__ == '__main__':
+#     unittest.main()
