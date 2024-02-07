@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .scrolling-text {
+            white-space: nowrap;
+            overflow: hidden;
+            background-color: green;
+            color: white;
+            padding: 10px;
+        }
+
+        .scrolling-text p {
+            display: inline-block;
+            animation: scrollText 25s linear infinite;
+        }
+
+        @keyframes scrollText {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="scrolling-text">
+        <p>Welcome!</p>
+    </div>
+</body>
+</html>

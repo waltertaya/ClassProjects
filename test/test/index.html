@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <link rel="stylesheet" href="styles.css" />
+   <title>Document</title>
+ </head>
+ <body>
+   <form action="#html">
+     <div>
+       <label for="name"> Name </label>
+       <input type="text" id="name" />
+     </div>
+
+     <div>
+       <label for="course"> Course </label>
+       <select id="course">
+         <option value="BICTM" selected="selected">BCITM</option>
+         <option value="Comp">Comp</option>
+         <option value="Scie">Scie</option>
+         <option value="BBIT">BBIT</option>
+         <option value="BIT">BIT</option>
+       </select>
+     </div>
+
+     <div>
+       <label for="age"> Age </label>
+       <input type="number" value="22" id="age" />
+     </div>
+
+     <div>
+       <label for="age"> Gender </label>
+       <select id="Gender">
+         <option value="Male" selected="selected">Male</option>
+         <option value="Female">Female</option>
+         <option value="not_say">Rather not say</option>
+       </select>
+     </div>
+
+     <div class="nationality">
+       <label for="nationality"> Nationality </label>
+       <div class="nation">
+         <label for="kenyan"><input type="radio" name="nation" />Kenyan</label>
+         <label for="Ugandan"
+           ><input type="radio" name="nation" />Ugandan</label
+         >
+         <label for="Tanzanian"
+           ><input type="radio" name="nation" />Tanzanian</label
+         >
+       </div>
+     </div>
+
+     <div class="mode">
+       <label for="nationality"> mode </label>
+       <div class="time">
+         <label for="dayTime"
+           ><input type="checkbox" id="dayTime" />Day Time</label
+         >
+         <label for="WeekEnd"
+           ><input type="checkbox" id="WeekEnd" />Week End</label
+         >
+         <label for="Evening"
+           ><input type="checkbox" id="Evening" />Evening</label
+         >
+       </div>
+     </div>
+     <div class="upload">
+       <label for="upload">Upload</label>
+       <input type="file" id="upload" />
+     </div>
+     <div class="controls">
+       <input type="submit" value="submit" />
+       <input type="reset" value="reset" />
+     </div>
+   </form>
+ </body>
+</html>
