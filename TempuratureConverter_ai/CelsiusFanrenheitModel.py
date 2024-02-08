@@ -15,7 +15,7 @@ model.compile(loss='mean_squared_error', optimizer=tf.keras.optimizers.Adam(0.1)
 history = model.fit(celsius_q, fanrenheit_a, epochs=500, verbose=False)
 print("Finished training the model")
 
+while (True):
+    pred_value = eval(input("Enter the value (degree Celsius) for the model to predict: "))
 
-pred_value = eval(input("Enter the value (degree Celsius) for the model to predict: "))
-
-print(model.predict([pred_value]))
+    print(model.predict([pred_value]))
