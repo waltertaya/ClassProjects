@@ -10,4 +10,5 @@ class Laptop {
     };
 };
 
-module.exports = new Laptop('HP Pavilion 15');
+// module.exports = new Laptop('HP Pavilion 15');
+module.exports = Laptop;
