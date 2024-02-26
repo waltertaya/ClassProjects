@@ -1,0 +1,4 @@
+# WATCH MODE
+
+In watch we run node --watch filename
+The watch mode makes sure that node command is rerun every time
