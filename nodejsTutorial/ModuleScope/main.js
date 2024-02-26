@@ -1,0 +1,2 @@
+require('./asus')
+require('./hp')
