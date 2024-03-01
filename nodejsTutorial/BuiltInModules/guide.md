@@ -7,3 +7,8 @@
   3. fs
   4. stream
   5. http
+
+## Callbacks
+
+1. Synchronous callbacks
+2. Async callbacks
