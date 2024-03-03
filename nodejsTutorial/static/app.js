@@ -3,7 +3,7 @@ const mockData = [
 	{id: 'A2', name: 'Leaf Blower', rrp: '303.33', info: 'This product will blow your socks off.'},
 	{id: 'B1', name: 'Chocolate Bar', rrp: '22.40', info: 'Deliciously overpriced chocolate.'}
   ]
-  const populateProducts =() => {
+  const populateProducts = () => {
 	const products = document.querySelector('#products')
 	products.innerHTML = ''
 	for (const product of mockData) {
