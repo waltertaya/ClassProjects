@@ -5,9 +5,12 @@ const authRoute = require('./routes/auth');
 const laptopRoutes = require('./routes/laptops');
 const laptopPartsRoutes = require('./routes/laptopComp');
 
+require('./database')
+
 const app = express();
 const PORT = 8000;
 
+const APP_SECRET = ""
 // Register middleware
 app.use(cookieParser());
 app.use(session({
