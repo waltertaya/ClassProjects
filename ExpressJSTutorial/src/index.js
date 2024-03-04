@@ -11,7 +11,7 @@ const PORT = 8000;
 // Register middleware
 app.use(cookieParser());
 app.use(session({
-    secret: "UKFUYQWDI8EWINOG8HI6LBDSO9782GDIUWacttTYDTK",
+    secret: `${APP_SECRET}`,
     resave: false,
     saveUninitialized: false,
 }));
