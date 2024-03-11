@@ -1,0 +1,3 @@
+New contents added to the new file created
+
+New contents added to the existing file

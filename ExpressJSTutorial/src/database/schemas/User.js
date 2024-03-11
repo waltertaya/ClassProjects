@@ -3,15 +3,12 @@ const { required } = require('nodemon/lib/config')
 
 
 const UserSchema = new mongoose.Schema({
-    username: {
+    email: {
         type: mongoose.SchemaTypes.String,
         required: true,
+        unique: true
     },
     password: {
-        type: mongoose.SchemaTypes.String,
-        required: true,
-    },
-    email: {
         type: mongoose.SchemaTypes.String,
         required: true,
     },
