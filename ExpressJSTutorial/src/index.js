@@ -10,7 +10,7 @@ require('./database')
 const app = express();
 const PORT = 8000;
 
-const APP_SECRET = ""
+const APP_SECRET = "hewogfwuoeu73tgwesbcdiuewefgsd7wet78fgv"
 // Register middleware
 app.use(cookieParser());
 app.use(session({
