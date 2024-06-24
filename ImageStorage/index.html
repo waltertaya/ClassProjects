@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Upload and Display</title>
+</head>
+<body>
+    <h1>Upload and Display Profile Picture</h1>
+    <form id="uploadForm">
+        <label for="imageInput"> Upload your Image: <br>
+            <input type="file" id="imageInput" class="imageInput" name="image" accept="image/*" required>
+        </label> <br>
+        <label for="userId"> Enter Unique Id for Image: <br>
+            <input id="userId" class="userId" name="userId" required>
+        </label> <br>
+        <button type="submit">Upload</button>
+    </form>
+
+    <h2>Profile Picture:</h2>
+    <img id="profileImage" src="" alt="Profile Image" style="display:none; width: 200px; height: 200px;">
+
+    <h2>All Profile Pictures:</h2>
+    <div id="allProfileImages"></div>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            const formData = new FormData();
+            formData.append('image', document.getElementById('imageInput').files[0]);
+            formData.append('userId', document.getElementById('userId').value);
+
+            const response = await fetch('http://localhost:3000/upload', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            console.log(result);
+
+            // Fetch and display the uploaded image
+            const userId = document.getElementById('userId').value;
+            const imageResponse = await fetch(`http://localhost:3000/profile-image/${userId}`);
+            const imageData = await imageResponse.json();
+
+            const profileImage = document.getElementById('profileImage');
+            profileImage.src = `data:image/jpeg;base64,${imageData.imageBase64}`;
+            profileImage.style.display = 'block';
+
+            // Fetch and display all images
+            displayAllImages();
+        });
+
+        async function displayAllImages() {
+            const allImagesResponse = await fetch('http://localhost:3000/profile-images');
+            const allImagesData = await allImagesResponse.json();
+
+            const allProfileImagesDiv = document.getElementById('allProfileImages');
+            allProfileImagesDiv.innerHTML = ''; // Clear existing images
+
+            allImagesData.forEach(imageData => {
+                const img = document.createElement('img');
+                img.src = `data:image/jpeg;base64,${imageData.imageBase64}`;
+                img.alt = `Profile Image of User ${imageData.userId}`;
+                img.style.width = '100px';
+                img.style.height = '100px';
+                img.style.margin = '10px';
+                allProfileImagesDiv.appendChild(img);
+            });
+        }
+
+        // Fetch and display all images on page load
+        displayAllImages();
+    </script>
+</body>
+</html>
