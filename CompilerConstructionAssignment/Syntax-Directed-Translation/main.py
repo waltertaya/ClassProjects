@@ -14,4 +14,4 @@ while y > 0
 # Parse and generate intermediate code
 result = parser.parse(code)
 print("\nIntermediate Code:")
-print(result)
+print("\n".join(result) if result else "No code generated")

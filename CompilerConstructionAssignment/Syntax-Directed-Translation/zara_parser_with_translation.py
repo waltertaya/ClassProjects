@@ -1,7 +1,7 @@
 import ply.yacc as yacc
 from zara_lexer import tokens
 
-# Initialize an intermediate code list to store generated code
+# Intermediate code list to store generated code
 intermediate_code = []
 temp_count = 0  # For temporary variable names
 
@@ -17,7 +17,6 @@ def new_temp():
 def p_program(p):
     '''program : statement_list'''
     p[0] = p[1]
-    print("\n".join(p[1]))  # Print the intermediate code
 
 def p_statement_list(p):
     '''statement_list : statement
@@ -40,6 +39,18 @@ def p_expression_statement(p):
     code = expr_code + [f"{var} = {result}"]
     p[0] = code
 
+# Add rule for relational expressions
+def p_expression_relational(p):
+    '''expression : expression LESS term
+                  | expression GREATER term
+                  | expression EQUAL term'''
+    expr_code, expr_result = p[1]
+    term_code, term_result = p[3]
+    result = new_temp()
+    code = expr_code + term_code + [f"{result} = {expr_result} {p[2]} {term_result}"]
+    p[0] = (code, result)
+
+# Arithmetic expressions
 def p_expression(p):
     '''expression : expression PLUS term
                   | expression MINUS term'''
@@ -74,6 +85,7 @@ def p_factor_id(p):
     '''factor : ID'''
     p[0] = ([], p[1])
 
+# Conditional statement with if-else
 def p_conditional_statement(p):
     '''conditional_statement : IF expression statement ELSE statement
                              | IF expression statement'''
@@ -81,7 +93,7 @@ def p_conditional_statement(p):
     if_code = p[3]
     code = expr_code + [f"if {expr_result} goto L1"] + ["goto L2", "label L1"] + if_code
     
-    if len(p) == 6:
+    if len(p) == 6:  # if-else structure
         else_code = p[5]
         code += ["goto L3", "label L2"] + else_code + ["label L3"]
     else:
@@ -89,6 +101,7 @@ def p_conditional_statement(p):
     
     p[0] = code
 
+# Loop statement with while
 def p_loop_statement(p):
     '''loop_statement : WHILE expression statement'''
     expr_code, expr_result = p[2]
