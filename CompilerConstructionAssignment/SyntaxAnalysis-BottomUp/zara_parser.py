@@ -1,4 +1,3 @@
-# zara_parser.py
 import ply.yacc as yacc
 from zara_lexer import tokens
 

@@ -1,4 +1,3 @@
-# test_parser.py
 from zara_parser import parser
 
 # Sample Zara code

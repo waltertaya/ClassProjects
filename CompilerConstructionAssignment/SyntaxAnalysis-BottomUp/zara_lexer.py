@@ -1,4 +1,3 @@
-# zara_lexer.py
 import ply.lex as lex
 
 # List of token names
