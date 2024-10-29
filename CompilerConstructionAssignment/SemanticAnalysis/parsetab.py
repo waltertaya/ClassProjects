@@ -6,9 +6,9 @@ _tabversion = '3.10'
 
 _lr_method = 'LALR'
 
-_lr_signature = 'COMMA DIVIDE DOT ELSE EQUALS FALSE FLOAT GE GT ID IF INT LBRACE LBRACKET LE LPAREN LT MINUS NUMBER PLUS POP PUSH RBRACE RBRACKET RPAREN SEMICOLON STACK STRING TIMES TRUE WHILEprogram : statement_liststatement_list : statement_list statement\n                      | statementstatement : expression_statement\n                 | declaration_statement\n                 | conditional_statement\n                 | loop_statementexpression_statement : expression SEMICOLONdeclaration_statement : INT ID SEMICOLON\n                             | FLOAT ID SEMICOLON\n                             | INT ID LBRACKET NUMBER RBRACKET SEMICOLON\n                             | STACK LT INT GT ID SEMICOLONexpression_statement : ID LBRACKET NUMBER RBRACKET EQUALS expression SEMICOLONexpression_statement : ID DOT PUSH LPAREN expression RPAREN SEMICOLONexpression_statement : ID DOT POP LPAREN RPAREN SEMICOLONconditional_statement : IF LPAREN expression RPAREN LBRACE statement_list RBRACE\n                             | IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACEloop_statement : WHILE LPAREN expression RPAREN LBRACE statement_list RBRACEexpression : expression PLUS term\n                  | expression MINUS term\n                  | termterm : term TIMES factor\n            | term DIVIDE factor\n            | factorfactor : ID\n              | NUMBER\n              | LPAREN expression RPAREN'
+_lr_signature = 'ASSIGN COMMA DIVIDE IDENTIFIER LBRACE LBRACKET LPAREN MINUS MULTIPLY NUMBER PLUS RBRACE RBRACKET RPAREN TYPEempty :program : declaration_listdeclaration_list : declaration_list declaration\n                        | declaration\n                        | emptyblock : LBRACE declaration_list RBRACEdeclaration : function_declaration\n                   | variable_declarationparameter_list : parameter_list COMMA TYPE IDENTIFIER\n                      | TYPE IDENTIFIER\n                      | emptyfunction_declaration : TYPE IDENTIFIER LPAREN parameter_list RPAREN blockvariable_declaration : TYPE IDENTIFIER ASSIGN expressionexpression : term\n                  | expression PLUS term\n                  | expression MINUS termterm : factor\n            | term MULTIPLY factor\n            | term DIVIDE factorfactor : NUMBER\n              | IDENTIFIER'
     
-_lr_action_items = {'ID':([0,2,3,4,5,6,7,11,12,13,19,20,21,22,30,31,32,33,40,42,49,52,55,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[9,9,-3,-4,-5,-6,-7,26,27,28,-2,-8,26,26,26,26,26,26,-9,-10,26,59,26,9,9,-15,-11,-12,9,9,-13,-14,-16,-18,9,9,-17,]),'INT':([0,2,3,4,5,6,7,19,20,29,40,42,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[12,12,-3,-4,-5,-6,-7,-2,-8,43,-9,-10,12,12,-15,-11,-12,12,12,-13,-14,-16,-18,12,12,-17,]),'FLOAT':([0,2,3,4,5,6,7,19,20,40,42,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[13,13,-3,-4,-5,-6,-7,-2,-8,-9,-10,13,13,-15,-11,-12,13,13,-13,-14,-16,-18,13,13,-17,]),'STACK':([0,2,3,4,5,6,7,19,20,40,42,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[14,14,-3,-4,-5,-6,-7,-2,-8,-9,-10,14,14,-15,-11,-12,14,14,-13,-14,-16,-18,14,14,-17,]),'IF':([0,2,3,4,5,6,7,19,20,40,42,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[15,15,-3,-4,-5,-6,-7,-2,-8,-9,-10,15,15,-15,-11,-12,15,15,-13,-14,-16,-18,15,15,-17,]),'WHILE':([0,2,3,4,5,6,7,19,20,40,42,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[16,16,-3,-4,-5,-6,-7,-2,-8,-9,-10,16,16,-15,-11,-12,16,16,-13,-14,-16,-18,16,16,-17,]),'NUMBER':([0,2,3,4,5,6,7,11,19,20,21,22,23,30,31,32,33,40,41,42,49,55,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[10,10,-3,-4,-5,-6,-7,10,-2,-8,10,10,36,10,10,10,10,-9,51,-10,10,10,10,10,-15,-11,-12,10,10,-13,-14,-16,-18,10,10,-17,]),'LPAREN':([0,2,3,4,5,6,7,11,15,16,19,20,21,22,30,31,32,33,37,38,40,42,49,55,60,61,64,65,66,67,68,69,70,71,72,74,75,76,],[11,11,-3,-4,-5,-6,-7,11,30,31,-2,-8,11,11,11,11,11,11,49,50,-9,-10,11,11,11,11,-15,-11,-12,11,11,-13,-14,-16,-18,11,11,-17,]),'$end':([1,2,3,4,5,6,7,19,20,40,42,64,65,66,69,70,71,72,76,],[0,-1,-3,-4,-5,-6,-7,-2,-8,-9,-10,-15,-11,-12,-13,-14,-16,-18,-17,]),'RBRACE':([3,4,5,6,7,19,20,40,42,64,65,66,67,68,69,70,71,72,75,76,],[-3,-4,-5,-6,-7,-2,-8,-9,-10,-15,-11,-12,71,72,-13,-14,-16,-18,76,-17,]),'SEMICOLON':([8,9,10,17,18,26,27,28,34,35,39,46,47,57,58,59,62,63,],[20,-25,-26,-21,-24,-25,40,42,-19,-20,-27,-22,-23,64,65,66,69,70,]),'PLUS':([8,9,10,17,18,25,26,34,35,39,44,45,46,47,56,62,],[21,-25,-26,-21,-24,21,-25,-19,-20,-27,21,21,-22,-23,21,21,]),'MINUS':([8,9,10,17,18,25,26,34,35,39,44,45,46,47,56,62,],[22,-25,-26,-21,-24,22,-25,-19,-20,-27,22,22,-22,-23,22,22,]),'LBRACKET':([9,27,],[23,41,]),'DOT':([9,],[24,]),'TIMES':([9,10,17,18,26,34,35,39,46,47,],[-25,-26,32,-24,-25,32,32,-27,-22,-23,]),'DIVIDE':([9,10,17,18,26,34,35,39,46,47,],[-25,-26,33,-24,-25,33,33,-27,-22,-23,]),'RPAREN':([10,17,18,25,26,34,35,39,44,45,46,47,50,56,],[-26,-21,-24,39,-25,-19,-20,-27,53,54,-22,-23,57,63,]),'LT':([14,],[29,]),'PUSH':([24,],[37,]),'POP':([24,],[38,]),'RBRACKET':([36,51,],[48,58,]),'GT':([43,],[52,]),'EQUALS':([48,],[55,]),'LBRACE':([53,54,73,],[60,61,74,]),'ELSE':([71,],[73,]),}
+_lr_action_items = {'$end':([0,1,],[-1,0,]),}
 
 _lr_action = {}
 for _k, _v in _lr_action_items.items():
@@ -17,7 +17,7 @@ for _k, _v in _lr_action_items.items():
       _lr_action[_x][_k] = _y
 del _lr_action_items
 
-_lr_goto_items = {'program':([0,],[1,]),'statement_list':([0,60,61,74,],[2,67,68,75,]),'statement':([0,2,60,61,67,68,74,75,],[3,19,3,3,19,19,3,19,]),'expression_statement':([0,2,60,61,67,68,74,75,],[4,4,4,4,4,4,4,4,]),'declaration_statement':([0,2,60,61,67,68,74,75,],[5,5,5,5,5,5,5,5,]),'conditional_statement':([0,2,60,61,67,68,74,75,],[6,6,6,6,6,6,6,6,]),'loop_statement':([0,2,60,61,67,68,74,75,],[7,7,7,7,7,7,7,7,]),'expression':([0,2,11,30,31,49,55,60,61,67,68,74,75,],[8,8,25,44,45,56,62,8,8,8,8,8,8,]),'term':([0,2,11,21,22,30,31,49,55,60,61,67,68,74,75,],[17,17,17,34,35,17,17,17,17,17,17,17,17,17,17,]),'factor':([0,2,11,21,22,30,31,32,33,49,55,60,61,67,68,74,75,],[18,18,18,18,18,18,18,46,47,18,18,18,18,18,18,18,18,]),}
+_lr_goto_items = {'empty':([0,],[1,]),}
 
 _lr_goto = {}
 for _k, _v in _lr_goto_items.items():
@@ -26,32 +26,26 @@ for _k, _v in _lr_goto_items.items():
        _lr_goto[_x][_k] = _y
 del _lr_goto_items
 _lr_productions = [
-  ("S' -> program","S'",1,None,None,None),
-  ('program -> statement_list','program',1,'p_program','zara_parser_with_translation.py',6),
-  ('statement_list -> statement_list statement','statement_list',2,'p_statement_list','zara_parser_with_translation.py',11),
-  ('statement_list -> statement','statement_list',1,'p_statement_list','zara_parser_with_translation.py',12),
-  ('statement -> expression_statement','statement',1,'p_statement','zara_parser_with_translation.py',17),
-  ('statement -> declaration_statement','statement',1,'p_statement','zara_parser_with_translation.py',18),
-  ('statement -> conditional_statement','statement',1,'p_statement','zara_parser_with_translation.py',19),
-  ('statement -> loop_statement','statement',1,'p_statement','zara_parser_with_translation.py',20),
-  ('expression_statement -> expression SEMICOLON','expression_statement',2,'p_expression_statement','zara_parser_with_translation.py',25),
-  ('declaration_statement -> INT ID SEMICOLON','declaration_statement',3,'p_declaration_statement','zara_parser_with_translation.py',30),
-  ('declaration_statement -> FLOAT ID SEMICOLON','declaration_statement',3,'p_declaration_statement','zara_parser_with_translation.py',31),
-  ('declaration_statement -> INT ID LBRACKET NUMBER RBRACKET SEMICOLON','declaration_statement',6,'p_declaration_statement','zara_parser_with_translation.py',32),
-  ('declaration_statement -> STACK LT INT GT ID SEMICOLON','declaration_statement',6,'p_declaration_statement','zara_parser_with_translation.py',33),
-  ('expression_statement -> ID LBRACKET NUMBER RBRACKET EQUALS expression SEMICOLON','expression_statement',7,'p_array_assignment','zara_parser_with_translation.py',38),
-  ('expression_statement -> ID DOT PUSH LPAREN expression RPAREN SEMICOLON','expression_statement',7,'p_stack_push','zara_parser_with_translation.py',43),
-  ('expression_statement -> ID DOT POP LPAREN RPAREN SEMICOLON','expression_statement',6,'p_stack_pop','zara_parser_with_translation.py',47),
-  ('conditional_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE','conditional_statement',7,'p_conditional_statement','zara_parser_with_translation.py',52),
-  ('conditional_statement -> IF LPAREN expression RPAREN LBRACE statement_list RBRACE ELSE LBRACE statement_list RBRACE','conditional_statement',11,'p_conditional_statement','zara_parser_with_translation.py',53),
-  ('loop_statement -> WHILE LPAREN expression RPAREN LBRACE statement_list RBRACE','loop_statement',7,'p_loop_statement','zara_parser_with_translation.py',58),
-  ('expression -> expression PLUS term','expression',3,'p_expression','zara_parser_with_translation.py',63),
-  ('expression -> expression MINUS term','expression',3,'p_expression','zara_parser_with_translation.py',64),
-  ('expression -> term','expression',1,'p_expression','zara_parser_with_translation.py',65),
-  ('term -> term TIMES factor','term',3,'p_term','zara_parser_with_translation.py',69),
-  ('term -> term DIVIDE factor','term',3,'p_term','zara_parser_with_translation.py',70),
-  ('term -> factor','term',1,'p_term','zara_parser_with_translation.py',71),
-  ('factor -> ID','factor',1,'p_factor','zara_parser_with_translation.py',75),
-  ('factor -> NUMBER','factor',1,'p_factor','zara_parser_with_translation.py',76),
-  ('factor -> LPAREN expression RPAREN','factor',3,'p_factor','zara_parser_with_translation.py',77),
+  ("S' -> empty","S'",1,None,None,None),
+  ('empty -> <empty>','empty',0,'p_empty','zara_parser.py',9),
+  ('program -> declaration_list','program',1,'p_program','zara_parser.py',13),
+  ('declaration_list -> declaration_list declaration','declaration_list',2,'p_declaration_list','zara_parser.py',18),
+  ('declaration_list -> declaration','declaration_list',1,'p_declaration_list','zara_parser.py',19),
+  ('declaration_list -> empty','declaration_list',1,'p_declaration_list','zara_parser.py',20),
+  ('block -> LBRACE declaration_list RBRACE','block',3,'p_block','zara_parser.py',25),
+  ('declaration -> function_declaration','declaration',1,'p_declaration','zara_parser.py',29),
+  ('declaration -> variable_declaration','declaration',1,'p_declaration','zara_parser.py',30),
+  ('parameter_list -> parameter_list COMMA TYPE IDENTIFIER','parameter_list',4,'p_parameter_list','zara_parser.py',35),
+  ('parameter_list -> TYPE IDENTIFIER','parameter_list',2,'p_parameter_list','zara_parser.py',36),
+  ('parameter_list -> empty','parameter_list',1,'p_parameter_list','zara_parser.py',37),
+  ('function_declaration -> TYPE IDENTIFIER LPAREN parameter_list RPAREN block','function_declaration',6,'p_function_declaration','zara_parser.py',42),
+  ('variable_declaration -> TYPE IDENTIFIER ASSIGN expression','variable_declaration',4,'p_variable_declaration','zara_parser.py',51),
+  ('expression -> term','expression',1,'p_expression','zara_parser.py',55),
+  ('expression -> expression PLUS term','expression',3,'p_expression','zara_parser.py',56),
+  ('expression -> expression MINUS term','expression',3,'p_expression','zara_parser.py',57),
+  ('term -> factor','term',1,'p_term','zara_parser.py',61),
+  ('term -> term MULTIPLY factor','term',3,'p_term','zara_parser.py',62),
+  ('term -> term DIVIDE factor','term',3,'p_term','zara_parser.py',63),
+  ('factor -> NUMBER','factor',1,'p_factor','zara_parser.py',67),
+  ('factor -> IDENTIFIER','factor',1,'p_factor','zara_parser.py',68),
 ]

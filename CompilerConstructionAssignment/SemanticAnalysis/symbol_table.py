@@ -1,22 +1,35 @@
 class SymbolTable:
     def __init__(self):
-        self.symbols = {}
-        self.types = {}
+        # Stack of dictionaries to handle scope levels
+        self.scopes = [{}]
 
-    def declare(self, name, var_type):
-        if name in self.symbols:
-            raise Exception(f"Variable '{name}' already declared.")
-        self.symbols[name] = True  # Mark variable as declared
-        self.types[name] = var_type  # Store variable type
+    def enter_scope(self):
+        """Enter a new scope."""
+        self.scopes.append({})
 
-    def assign(self, name, value_type):
-        if name not in self.symbols:
-            raise Exception(f"Variable '{name}' not declared.")
-        if self.types[name] != value_type:
-            raise Exception(f"Type mismatch: cannot assign {value_type} to {self.types[name]}.")
+    def exit_scope(self):
+        """Exit the current scope."""
+        if len(self.scopes) > 1:
+            self.scopes.pop()
 
-    def get_type(self, name):
-        return self.types.get(name, None)
+    def insert(self, name, var_type):
+        """Insert a variable in the current scope."""
+        if name in self.scopes[-1]:
+            print(f"Error: Variable '{name}' already declared in current scope")
+        else:
+            self.scopes[-1][name] = var_type
 
-# Initialize the symbol table
-symbol_table = SymbolTable()
+    def lookup(self, name):
+        """Look up a variable, starting from the innermost scope."""
+        for scope in reversed(self.scopes):
+            if name in scope:
+                return scope[name]
+        print(f"Error: Variable '{name}' not declared")
+        return None
+
+    def display(self):
+        """Display the current symbol table."""
+        print("Current Symbol Table:")
+        for scope in self.scopes:
+            for name, var_type in scope.items():
+                print(f"{name}: {var_type}")
