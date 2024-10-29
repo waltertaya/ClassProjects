@@ -1,4 +1,4 @@
-# Syntax-Directed Translation Assignment
+# Semantic Analysis
 
 - [Link to the github](https://github.com/waltertaya/ClassProjects/edit/main/CompilerConstructionAssignment/SemanticAnalysis)
 
